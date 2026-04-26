@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}{{ t('nav.analytics') }} — EcoBuddy{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div>
+    <h1>{{ t('ana.title') }}</h1>
+    <p class="muted">{{ t('ana.subtitle') }}</p>
+  </div>
+  <div class="head-actions">
+    <a href="/api/export-pdf" class="btn btn-ghost">{{ t('common.export_pdf') }}</a>
+  </div>
+</section>
+
+<section class="stat-grid">
+  <div class="stat-card">
+    <span class="stat-label">{{ t('dash.carbon_score') }}</span>
+    <span class="stat-value"><span id="aScore">—</span><small>/100</small></span>
+    <span class="stat-foot">{{ t('ana.higher_green') }}</span>
+  </div>
+  <div class="stat-card primary">
+    <span class="stat-label">{{ t('dash.this_month') }}</span>
+    <span class="stat-value"><span id="aMonth">—</span><small>{{ t('common.kg_co2') }}</small></span>
+    <span class="stat-foot">{{ t('ana.total_em') }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-label">{{ t('ana.global') }}</span>
+    <span class="stat-value">333<small>{{ t('ana.kg_mo') }}</small></span>
+    <span class="stat-foot">{{ t('ana.per_person') }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-label">{{ t('ana.india') }}</span>
+    <span class="stat-value">158<small>{{ t('ana.kg_mo') }}</small></span>
+    <span class="stat-foot">{{ t('ana.per_person') }}</span>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h3>{{ t('ana.daily_cat') }}</h3><span class="muted small">{{ t('ana.stacked') }}</span></div>
+  <div class="chart-wrap tall"><canvas id="stackChart"></canvas></div>
+</section>
+
+<section class="grid-2">
+  <div class="panel">
+    <div class="panel-head"><h3>{{ t('ana.total_trend') }}</h3></div>
+    <div class="chart-wrap"><canvas id="totalChart"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>{{ t('ana.compare_self') }}</h3></div>
+    <div class="chart-wrap"><canvas id="compareBar"></canvas></div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h3>{{ t('ana.smart_ins') }}</h3></div>
+  <ul class="tip-list" id="aTips"></ul>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/analytics.js') }}" defer="defer"></script>
+{% endblock %}

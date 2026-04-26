@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ t('auth.reset') }} — EcoBuddy{% endblock %}
+{% block content %}
+<section class="auth-shell">
+  <div class="auth-art">
+    <div class="auth-art-inner">
+      <div class="big-leaf">&#x1F511;</div>
+      <h1>{{ t('auth.reset') }}</h1>
+      <p>{{ t('auth.reset_help') }}</p>
+    </div>
+  </div>
+  <div class="auth-card">
+    <h2>{{ t('auth.reset') }}</h2>
+    <p class="auth-sub">{{ t('auth.reset_help') }}</p>
+    <form method="post" class="form">
+      <label class="field">
+        <span>{{ t('auth.email') }}</span>
+        <input type="email" name="email" required="required" />
+      </label>
+      <label class="field">
+        <span>{{ t('auth.new_pw') }}</span>
+        <input type="password" name="password" required="required" minlength="6" />
+      </label>
+      <button type="submit" class="btn btn-primary btn-block">{{ t('auth.reset') }}</button>
+    </form>
+    <div class="auth-foot">
+      <a href="{{ url_for('login_view') }}">&larr; {{ t('common.signin') }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

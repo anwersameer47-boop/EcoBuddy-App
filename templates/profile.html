@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ t('prof.title') }} — EcoBuddy{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div>
+    <h1>{{ t('prof.title') }}</h1>
+    <p class="muted">{{ t('prof.subtitle') }}</p>
+  </div>
+</section>
+
+<section class="grid-2">
+  <div class="panel">
+    <div class="panel-head"><h3>{{ t('prof.account') }}</h3></div>
+    <div class="profile-block">
+      <div class="avatar">{{ current_user.name[:1].upper() }}</div>
+      <div class="profile-info">
+        <strong>{{ current_user.name }}</strong>
+        <span class="muted">{{ current_user.email }}</span>
+        <span class="muted small">{{ t('prof.joined') }} {{ current_user.created_at.strftime("%b %d, %Y") }}</span>
+      </div>
+    </div>
+    <div class="profile-stats">
+      <div><span class="muted small">{{ t('prof.eco_points') }}</span><strong>{{ current_user.points or 0 }}</strong></div>
+      <div><span class="muted small">{{ t('prof.theme') }}</span><strong>{{ t('prof.dark') if dark_mode else t('prof.light') }}</strong></div>
+    </div>
+    <a class="btn btn-ghost" href="{{ url_for('logout') }}">{{ t('common.signout') }}</a>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>{{ t('prof.preferences') }}</h3></div>
+    <div class="pref-row">
+      <div>
+        <strong>{{ t('prof.language') }}</strong>
+        <p class="muted small">{{ t('prof.lang_help') }}</p>
+      </div>
+      <div class="lang-toggle" role="radiogroup" aria-label="Language">
+        <label class="lang-pill">
+          <input type="radio" name="langChoice" value="en" {% if lang == 'en' %}checked="checked"{% endif %} />
+          <span>{{ t('prof.lang_en') }}</span>
+        </label>
+        <label class="lang-pill">
+          <input type="radio" name="langChoice" value="hi" {% if lang == 'hi' %}checked="checked"{% endif %} />
+          <span>{{ t('prof.lang_hi') }}</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid-2">
+  <div class="panel">
+    <div class="panel-head"><h3>{{ t('prof.your_badges') }}</h3></div>
+    <div class="badges" id="badges"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>{{ t('prof.reduce_more') }}</h3></div>
+    <ul class="tip-list">
+      <li><span class="tip-icon">&#x1F69C;</span><span>{{ t('prof.tip1') }}</span></li>
+      <li><span class="tip-icon">&#x1F4A1;</span><span>{{ t('prof.tip2') }}</span></li>
+      <li><span class="tip-icon">&#x1F957;</span><span>{{ t('prof.tip3') }}</span></li>
+      <li><span class="tip-icon">&#x267B;</span><span>{{ t('prof.tip4') }}</span></li>
+      <li><span class="tip-icon">&#x1F333;</span><span>{{ t('prof.tip5') }}</span></li>
+    </ul>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/profile.js') }}" defer="defer"></script>
+{% endblock %}

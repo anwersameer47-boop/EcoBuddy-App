@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}{{ t('calc.title') }} — EcoBuddy{% endblock %}
+{% block content %}
+<section class="page-head">
+  <div>
+    <h1>{{ t('calc.title') }}</h1>
+    <p class="muted">{{ t('calc.subtitle') }}</p>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <h3>{{ t('calc.choose') }}</h3>
+    <span class="muted small">{{ t('calc.one_at_time') }}</span>
+  </div>
+  <div class="cat-toggles" role="radiogroup" aria-label="Category">
+    <label class="cat-toggle" data-cat="transport">
+      <input type="radio" name="catChoice" value="transport" checked="checked" />
+      <span class="cat-pill"><span class="cat-icon">&#x1F697;</span>{{ t('calc.transport') }}</span>
+    </label>
+    <label class="cat-toggle" data-cat="energy">
+      <input type="radio" name="catChoice" value="energy" />
+      <span class="cat-pill"><span class="cat-icon">&#x26A1;</span>{{ t('calc.energy') }}</span>
+    </label>
+    <label class="cat-toggle" data-cat="waste">
+      <input type="radio" name="catChoice" value="waste" />
+      <span class="cat-pill"><span class="cat-icon">&#x1F5D1;</span>{{ t('calc.waste') }}</span>
+    </label>
+  </div>
+
+  <form id="calcForm" class="form calc-form">
+    <div class="calc-block" data-block="transport">
+      <h4><span class="block-dot t"></span>{{ t('calc.transport') }}</h4>
+      <div class="row">
+        <label class="field">
+          <span>{{ t('calc.distance') }}</span>
+          <input type="number" min="0" step="0.1" name="transport_km" value="0" />
+        </label>
+        <label class="field">
+          <span>{{ t('calc.mode') }}</span>
+          <select name="transport_mode">
+            <option value="car">{{ t('calc.car') }}</option>
+            <option value="bike">{{ t('calc.bike') }}</option>
+            <option value="bus">{{ t('calc.bus') }}</option>
+            <option value="train">{{ t('calc.train') }}</option>
+            <option value="walk">{{ t('calc.walk') }}</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="calc-block" data-block="energy">
+      <h4><span class="block-dot e"></span>{{ t('calc.energy') }}</h4>
+      <label class="field">
+        <span>{{ t('calc.kwh') }}</span>
+        <input type="number" min="0" step="0.1" name="energy_kwh" value="0" />
+      </label>
+    </div>
+
+    <div class="calc-block" data-block="waste">
+      <h4><span class="block-dot w"></span>{{ t('calc.waste') }}</h4>
+      <p class="muted small calc-hint">{{ t('calc.waste_hint') }}</p>
+      <div class="row">
+        <label class="field">
+          <span>{{ t('calc.bio_kg') }} <span class="muted small">{{ t('calc.bio_examples') }}</span></span>
+          <input type="number" min="0" step="0.1" name="bio_kg" value="0" />
+        </label>
+        <label class="field">
+          <span>{{ t('calc.nonbio_kg') }} <span class="muted small">{{ t('calc.nonbio_examples') }}</span></span>
+          <input type="number" min="0" step="0.1" name="nonbio_kg" value="0" />
+        </label>
+      </div>
+    </div>
+
+    <div class="calc-actions">
+      <button type="submit" class="btn btn-primary">{{ t('calc.calc_save') }}</button>
+      <button type="button" id="resetBtn" class="btn btn-ghost">{{ t('common.reset') }}</button>
+    </div>
+  </form>
+</section>
+
+<section class="panel" id="reportPanel">
+  <div class="panel-head">
+    <h3 id="reportTitle">{{ t('calc.your_report') }}</h3>
+    <span class="impact-tag impact-na" id="impactTag">{{ t('calc.awaiting') }}</span>
+  </div>
+  <div class="report-grid">
+    <div class="report-side">
+      <div class="report-total">
+        <span class="muted small" id="reportSubtitle">{{ t('calc.pick_press') }}</span>
+        <span class="big-num"><span id="rTotal">0.00</span> <small>{{ t('common.kg_co2') }}</small></span>
+      </div>
+      <ul class="report-meta" id="reportMeta"></ul>
+    </div>
+    <div class="report-chart">
+      <div class="chart-wrap"><canvas id="reportChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="report-section">
+    <h4>{{ t('calc.comp_savings') }}</h4>
+    <ul class="tip-list" id="reportSavings"></ul>
+  </div>
+
+  <div class="report-section">
+    <h4>{{ t('calc.precautions') }}</h4>
+    <ul class="tip-list" id="reportPrecautions">
+      <li><span class="tip-icon">&#x2728;</span><span>{{ t('calc.run_first') }}</span></li>
+    </ul>
+  </div>
+
+  <div class="report-section">
+    <h4>{{ t('calc.reduce') }}</h4>
+    <ul class="tip-list" id="reportReduce">
+      <li><span class="tip-icon">&#x1F331;</span><span>{{ t('calc.run_first') }}</span></li>
+    </ul>
+  </div>
+
+  <div class="report-section powerful-section">
+    <h4>{{ t('calc.powerful') }} <span class="powerful-badge" id="powerfulBadge">—</span></h4>
+    <p class="muted small" id="powerfulIntro">{{ t('calc.run_first') }}</p>
+    <ul class="tip-list" id="reportPowerful"></ul>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h3>{{ t('calc.how_calc') }}</h3></div>
+  <div class="factors">
+    <div class="factor"><strong>{{ t('calc.car_f') }}</strong><span>0.21 {{ t('common.kg_co2') }}/km</span></div>
+    <div class="factor"><strong>{{ t('calc.bike_f') }}</strong><span>0.10 {{ t('common.kg_co2') }}/km</span></div>
+    <div class="factor"><strong>{{ t('calc.bus_f') }}</strong><span>0.05 {{ t('common.kg_co2') }}/km</span></div>
+    <div class="factor"><strong>{{ t('calc.train_f') }}</strong><span>0.04 {{ t('common.kg_co2') }}/km</span></div>
+    <div class="factor"><strong>{{ t('calc.elec_f') }}</strong><span>0.82 {{ t('common.kg_co2') }}/kWh</span></div>
+    <div class="factor"><strong>{{ t('calc.bio_f') }}</strong><span>0.7 {{ t('common.kg_co2') }}/kg</span></div>
+    <div class="factor"><strong>{{ t('calc.nonbio_f') }}</strong><span>2.9 {{ t('common.kg_co2') }}/kg</span></div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/calculator.js') }}" defer="defer"></script>
+{% endblock %}
