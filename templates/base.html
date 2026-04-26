@@ -13,6 +13,11 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer="defer"></script>
 </head>
 <body>
+  <div id="splash-screen">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="splash-logo" alt="EcoBuddy" />
+    <p class="splash-text">Small Actions, Big Impact</p>
+  </div>
+
   {% if not current_user %}
   <div class="public-bar">
     <a class="public-brand" href="{{ url_for('index') }}">
@@ -71,6 +76,16 @@
     window.EcoBuddy.i18n = {{ js_i18n | tojson }};
   </script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script type="text/javascript">
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        var splash = document.getElementById("splash-screen");
+        if (splash) {
+          splash.classList.add("hide");
+        }
+      }, 2000);
+    });
+  </script>
   {% block scripts %}{% endblock %}
 </body>
 </html>
