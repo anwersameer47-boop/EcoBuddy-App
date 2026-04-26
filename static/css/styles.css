@@ -648,3 +648,107 @@ button { font-family:inherit; }
   .public-brand { font-size:16px; }
   .lang-btn { min-width:36px; padding:5px 10px; font-size:12px; }
 }
+/* Premium EcoBuddy Splash */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(34,197,94,.18), transparent 35%),
+    linear-gradient(135deg, #f5fff8, #dcfce7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  z-index: 9999;
+  transition: opacity .7s ease, visibility .7s ease;
+}
+
+.splash-circle {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+  box-shadow: 0 20px 60px rgba(22,163,74,.18);
+  animation: splashGlow 1.8s ease-in-out infinite alternate;
+}
+
+.splash-logo {
+  width: 180px;
+  max-width: 80%;
+  animation: logoBloom 1.5s ease forwards;
+}
+
+.splash-title {
+  margin: 6px 0 0;
+  color: #14532d;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.splash-text {
+  margin: 0;
+  color: #15803d;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.leaf {
+  position: absolute;
+  font-size: 24px;
+  opacity: .9;
+  animation: leafFloat 2s ease-in-out infinite;
+}
+
+.leaf-1 { top: 12px; left: 34px; }
+.leaf-2 { right: 18px; top: 68px; animation-delay: .3s; }
+.leaf-3 { bottom: 22px; left: 50px; animation-delay: .6s; }
+
+.splash-loader {
+  width: 150px;
+  height: 5px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: rgba(22,101,52,.15);
+  margin-top: 8px;
+}
+
+.splash-loader::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 45%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #22c55e, #15803d);
+  animation: loadSlide 1.2s ease-in-out infinite;
+}
+
+#splash-screen.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes logoBloom {
+  from { transform: scale(.75); opacity: 0; filter: blur(4px); }
+  to { transform: scale(1); opacity: 1; filter: blur(0); }
+}
+
+@keyframes splashGlow {
+  from { transform: scale(.98); }
+  to { transform: scale(1.03); }
+}
+
+@keyframes leafFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(12deg); }
+}
+
+@keyframes loadSlide {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(260%); }
+}
