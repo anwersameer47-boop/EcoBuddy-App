@@ -7,3 +7,4 @@ SQLAlchemy
 Flask-Login
 Werkzeug
 python-dotenv
+psycopg2-binary
