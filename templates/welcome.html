@@ -2,7 +2,6 @@
 {% block title %}EcoBuddy &#8212; {{ t('welcome.tagline') }}{% endblock %}
 
 {% block content %}
-
 <section class="welcome-hero">
   <div class="welcome-hero-inner">
     <div class="welcome-copy">
@@ -11,12 +10,10 @@
       </span>
       <h1 class="welcome-title">{{ t('welcome.title') }}</h1>
       <p class="welcome-sub">{{ t('welcome.sub') }}</p>
-
       <div class="welcome-cta">
         <a href="{{ url_for('register') }}" class="btn btn-primary">{{ t('welcome.get_started') }}</a>
         <a href="{{ url_for('login_view') }}" class="btn btn-ghost">{{ t('common.signin') }}</a>
       </div>
-
       <ul class="welcome-bullets">
         <li><span class="dot">&#x2713;</span> {{ t('welcome.bullet1') }}</li>
         <li><span class="dot">&#x2713;</span> {{ t('welcome.bullet2') }}</li>
@@ -35,62 +32,85 @@
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="welcome-features">
   <h2 class="welcome-h2">{{ t('welcome.features_title') }}</h2>
   <p class="welcome-h2-sub">{{ t('welcome.features_sub') }}</p>
 
   <div class="feature-grid">
     <a href="{{ url_for('login_view') }}" class="feature-card feature-calc">
-      <div class="feature-icon">&#x1F9EE;</div>
+      <div class="feature-icon" aria-hidden="true">&#x1F9EE;</div>
       <h3>{{ t('welcome.f_calc_title') }}</h3>
       <p>{{ t('welcome.f_calc_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_calc_b1') }}</li>
+        <li>{{ t('welcome.f_calc_b2') }}</li>
+        <li>{{ t('welcome.f_calc_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">{{ t('welcome.try_it') }} &#8594;</span>
     </a>
 
     <a href="{{ url_for('login_view') }}" class="feature-card feature-goals">
-      <div class="feature-icon">&#x1F3AF;</div>
+      <div class="feature-icon" aria-hidden="true">&#x1F3AF;</div>
       <h3>{{ t('welcome.f_goals_title') }}</h3>
       <p>{{ t('welcome.f_goals_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_goals_b1') }}</li>
+        <li>{{ t('welcome.f_goals_b2') }}</li>
+        <li>{{ t('welcome.f_goals_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">{{ t('welcome.try_it') }} &#8594;</span>
     </a>
 
     <a href="{{ url_for('login_view') }}" class="feature-card feature-chal">
-      <div class="feature-icon">&#x1F3C6;</div>
+      <div class="feature-icon" aria-hidden="true">&#x1F3C6;</div>
       <h3>{{ t('welcome.f_chal_title') }}</h3>
       <p>{{ t('welcome.f_chal_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_chal_b1') }}</li>
+        <li>{{ t('welcome.f_chal_b2') }}</li>
+        <li>{{ t('welcome.f_chal_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">{{ t('welcome.try_it') }} &#8594;</span>
     </a>
 
-    <a href="{{ url_for('login_view') }}" class="feature-card feature-offset highlight">
-      <div class="feature-icon">&#x1F333;</div>
+    <a href="https://www.onetreeplanted.org/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="feature-card feature-offset highlight">
+      <span class="feature-flag">{{ t('welcome.spotlight') }}</span>
+      <div class="feature-icon" aria-hidden="true">&#x1F333;</div>
       <h3>{{ t('welcome.f_offset_title') }}</h3>
       <p>{{ t('welcome.f_offset_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_offset_b1') }}</li>
+        <li>{{ t('welcome.f_offset_b2') }}</li>
+        <li>{{ t('welcome.f_offset_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">Plant a Tree &#8594;</span>
     </a>
   </div>
 </section>
 
-<!-- 🌱 NEW CARBON OFFSET SLIDE SECTION -->
 <section class="offset-slide-card">
   <div>
     <span class="offset-badge">🌱 Carbon Offset</span>
     <h2>Plant a Tree, Offset Your Carbon</h2>
     <p>
-      One mature tree can absorb around 21 kg CO₂ per year.
-      Start reducing your footprint by supporting tree plantation.
+      Support tree planting and help balance your carbon footprint.
+      Small actions can create a big impact.
     </p>
   </div>
 
   <a href="https://www.onetreeplanted.org/"
      target="_blank"
+     rel="noopener noreferrer"
      class="btn btn-primary">
     Plant a Tree 🌳
   </a>
 </section>
 
-<!-- FOOT CTA -->
 <section class="welcome-foot-cta">
   <p>{{ t('welcome.foot_q') }}</p>
-  <a href="{{ url_for('register') }}" class="btn btn-primary">
-    {{ t('welcome.create_free') }}
-  </a>
+  <a href="{{ url_for('register') }}" class="btn btn-primary">{{ t('welcome.create_free') }}</a>
 </section>
-
 {% endblock %}
