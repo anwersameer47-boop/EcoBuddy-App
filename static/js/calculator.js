@@ -606,15 +606,19 @@
         nonbio_kg:    cat === 'waste'     ? Number(fd.get('nonbio_kg') || 0)    : 0,
       };
       try {
-        await E.postJSON('/api/calculate', body);
+       await fetch('/api/calculate', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(body)
+       });
       } catch (e) { /* show local report regardless */ }
 
       showReport(cat, report);
-    });
+    }
   }
 
   const resetBtn = document.getElementById('resetBtn');
   if (resetBtn) resetBtn.addEventListener('click', () => { form.reset(); resetReport(); });
 
   resetReport();
-})();
+});
