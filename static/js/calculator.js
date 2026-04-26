@@ -1,5 +1,5 @@
  document.addEventListener("DOMContentLoaded", function () {
-  const E = window.EcoBuddy;
+  const E = window.EcoBuddy || {};
   const LANG = (E && E.lang) || 'en';
   const I = (E && E.i18n) || {};
   const form = document.getElementById('calcForm') || document.getElementById('calculatorForm');
