@@ -6,16 +6,29 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}EcoBuddy{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer="defer"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 </head>
+
 <body>
+
+  <!-- 🌿 SPLASH SCREEN -->
   <div id="splash-screen">
-    <img src="{{ url_for('static', filename='logo.png') }}" class="splash-logo" alt="EcoBuddy" />
+    <div class="splash-circle">
+      <img src="{{ url_for('static', filename='logo.png') }}" class="splash-logo" alt="EcoBuddy" />
+      <span class="leaf leaf-1">🍃</span>
+      <span class="leaf leaf-2">🍃</span>
+      <span class="leaf leaf-3">🍃</span>
+    </div>
+    <h2 class="splash-title">EcoBuddy</h2>
     <p class="splash-text">Small Actions, Big Impact</p>
+    <div class="splash-loader"></div>
   </div>
 
   {% if not current_user %}
@@ -23,69 +36,57 @@
     <a class="public-brand" href="{{ url_for('index') }}">
       <span class="brand-leaf">&#x1F33F;</span> EcoBuddy
     </a>
-    <div class="public-lang" role="group" aria-label="Language">
+
+    <div class="public-lang">
       <a href="{{ url_for('set_language', lang='en', next=request.path) }}"
-         class="lang-btn {% if lang == 'en' %}active{% endif %}"
-         title="English">EN</a>
+         class="lang-btn {% if lang == 'en' %}active{% endif %}">EN</a>
       <a href="{{ url_for('set_language', lang='hi', next=request.path) }}"
-         class="lang-btn {% if lang == 'hi' %}active{% endif %}"
-         title="हिंदी">हिं</a>
+         class="lang-btn {% if lang == 'hi' %}active{% endif %}">हिं</a>
     </div>
   </div>
   {% endif %}
+
   {% if current_user %}
   <nav class="topnav">
     <a class="brand" href="{{ url_for('dashboard') }}">
       <span class="brand-leaf">&#x1F33F;</span> EcoBuddy
     </a>
-    <button type="button" class="nav-toggle" id="navToggle" aria-label="{{ t('nav.menu') }}">&#9776;</button>
+
+    <button class="nav-toggle" id="navToggle">&#9776;</button>
+
     <div class="nav-links" id="navLinks">
-      <a href="{{ url_for('dashboard') }}" class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}">{{ t('nav.dashboard') }}</a>
-      <a href="{{ url_for('calculator_page') }}" class="nav-link {% if request.endpoint == 'calculator_page' %}active{% endif %}">{{ t('nav.calculator') }}</a>
-      <a href="{{ url_for('analytics_page') }}" class="nav-link {% if request.endpoint == 'analytics_page' %}active{% endif %}">{{ t('nav.analytics') }}</a>
-      <a href="{{ url_for('goals_page') }}" class="nav-link {% if request.endpoint == 'goals_page' %}active{% endif %}">{{ t('nav.goals') }}</a>
-      <a href="{{ url_for('profile_page') }}" class="nav-link {% if request.endpoint == 'profile_page' %}active{% endif %}">{{ t('nav.profile') }}</a>
-      <button type="button" id="darkToggle" class="theme-btn" aria-label="Toggle dark mode" title="Toggle theme">
-        <span class="theme-icon">{{ '\u263E' if not dark_mode else '\u2600' }}</span>
-      </button>
-      <a href="{{ url_for('logout') }}" class="nav-link logout">{{ t('nav.logout') }}</a>
+      <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+      <a href="{{ url_for('calculator_page') }}" class="nav-link">Calculator</a>
+      <a href="{{ url_for('analytics_page') }}" class="nav-link">Analytics</a>
+      <a href="{{ url_for('goals_page') }}" class="nav-link">Goals</a>
+      <a href="{{ url_for('profile_page') }}" class="nav-link">Profile</a>
+
+      <button id="darkToggle" class="theme-btn">🌙</button>
+      <a href="{{ url_for('logout') }}" class="nav-link logout">Logout</a>
     </div>
   </nav>
   {% endif %}
 
   <main class="page">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="flash-stack">
-          {% for cat, msg in messages %}
-            <div class="flash flash-{{ cat }}">{{ msg }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
     {% block content %}{% endblock %}
   </main>
 
   <footer class="foot">
-    <span>EcoBuddy &#169; {{ current_year }} &#8212; {{ t('footer.tag') }}</span>
+    <span>EcoBuddy © {{ current_year }}</span>
   </footer>
 
-  <script type="text/javascript">
-    window.EcoBuddy = window.EcoBuddy || {};
-    window.EcoBuddy.lang = "{{ lang }}";
-    window.EcoBuddy.i18n = {{ js_i18n | tojson }};
-  </script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-  <script type="text/javascript">
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+  <!-- 🌿 SPLASH HIDE SCRIPT -->
+  <script>
     window.addEventListener("load", function () {
       setTimeout(function () {
         var splash = document.getElementById("splash-screen");
-        if (splash) {
-          splash.classList.add("hide");
-        }
+        if (splash) splash.classList.add("hide");
       }, 2000);
     });
   </script>
-  {% block scripts %}{% endblock %}
+
 </body>
 </html>
