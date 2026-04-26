@@ -1,0 +1,5 @@
+flask
+gunicorn
+reportlab
+bcrypt
+flask_sqlalchemy
