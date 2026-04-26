@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ t('nav.dashboard') }} — EcoBuddy{% endblock %}
+
 {% block content %}
 <section class="page-head">
   <div>
@@ -12,23 +13,44 @@
   </div>
 </section>
 
+<section class="offset-slide-card">
+  <div>
+    <span class="offset-badge">🌱 Carbon Offset</span>
+    <h2>Plant Trees to Offset Your Footprint</h2>
+    <p>
+      One mature tree can absorb around 21 kg CO₂ per year.
+      Support tree planting and take one more step toward a greener planet.
+    </p>
+  </div>
+
+  <a href="https://www.onetreeplanted.org/"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="btn btn-primary">
+    Plant a Tree 🌳
+  </a>
+</section>
+
 <section class="stat-grid">
   <div class="stat-card">
     <span class="stat-label">{{ t('dash.today') }}</span>
     <span class="stat-value"><span id="todayTotal">—</span> <small>{{ t('common.kg_co2') }}</small></span>
     <span class="stat-foot">{{ t('dash.logged_today') }}</span>
   </div>
+
   <div class="stat-card">
     <span class="stat-label">{{ t('dash.this_week') }}</span>
     <span class="stat-value"><span id="weekTotal">—</span> <small>{{ t('common.kg_co2') }}</small></span>
     <span class="stat-foot">{{ t('dash.last_7') }}</span>
   </div>
+
   <div class="stat-card primary">
     <span class="stat-label">{{ t('dash.this_month') }}</span>
     <span class="stat-value"><span id="monthTotal">—</span> <small>{{ t('common.kg_co2') }}</small></span>
     <span class="stat-foot">{{ t('dash.goal') }}: <span id="goalTarget">—</span> kg</span>
     <div class="bar"><div class="bar-fill" id="goalBar" style="width:0%"></div></div>
   </div>
+
   <div class="stat-card score">
     <span class="stat-label">{{ t('dash.carbon_score') }}</span>
     <span class="stat-value"><span id="score">—</span><small>/100</small></span>
@@ -44,6 +66,7 @@
     </div>
     <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
   </div>
+
   <div class="panel">
     <div class="panel-head">
       <h3>{{ t('dash.trend30') }}</h3>
@@ -58,8 +81,12 @@
     <div class="panel-head"><h3>{{ t('dash.smart_sug') }}</h3></div>
     <ul class="tip-list" id="tips"></ul>
   </div>
+
   <div class="panel">
-    <div class="panel-head"><h3>{{ t('dash.compare') }}</h3><span class="muted small">{{ t('dash.kg_per_month') }}</span></div>
+    <div class="panel-head">
+      <h3>{{ t('dash.compare') }}</h3>
+      <span class="muted small">{{ t('dash.kg_per_month') }}</span>
+    </div>
     <div class="chart-wrap"><canvas id="compareChart"></canvas></div>
   </div>
 </section>
