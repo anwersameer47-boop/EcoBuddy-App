@@ -6,3 +6,4 @@ Flask-SQLAlchemy
 SQLAlchemy
 Flask-Login
 Werkzeug
+python-dotenv
