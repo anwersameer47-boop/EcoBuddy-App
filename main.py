@@ -39,8 +39,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 EMISSION_FACTORS = {
-
-EMISSION_FACTORS = {
     "transport": {"car": 0.21, "bike": 0.10, "bus": 0.05, "train": 0.04, "walk": 0.0},
     "electricity": 0.82,
     # Food category retired from the calculator UI — kept here for backward compatibility
