@@ -19,15 +19,26 @@ from reportlab.lib import colors
 
 from translations import STRINGS, t as _t, js_strings
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DB_PATH = os.path.join(BASE_DIR, "ecobuddy.db")
-
 app = Flask(__name__)
+
 app.config["SECRET_KEY"] = os.environ.get("SESSION_SECRET", "dev-secret-change-me")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_PATH}"
+
+# Railway Postgres connection
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is missing. Please connect Postgres variables in Railway.")
+
+# Railway sometimes gives postgres://, SQLAlchemy needs postgresql://
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+
+EMISSION_FACTORS = {
 
 EMISSION_FACTORS = {
     "transport": {"car": 0.21, "bike": 0.10, "bus": 0.05, "train": 0.04, "walk": 0.0},
