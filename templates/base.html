@@ -19,6 +19,9 @@
 </head>
 
 <body>
+   <button id="installAppBtn" class="install-app-btn" style="display:none;">
+  Download App 📱
+  </button>
 
   <!-- 🌿 SPLASH SCREEN -->
   <div id="splash-screen">
@@ -91,9 +94,6 @@
       }, 2000);
     });
   </script>
-  <button id="installAppBtn" class="install-app-btn" style="display:none;">
-  Download App 📱
-  </button>
   <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/static/sw.js');
