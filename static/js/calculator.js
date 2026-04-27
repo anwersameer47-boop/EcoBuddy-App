@@ -606,8 +606,12 @@
         nonbio_kg:    cat === 'waste'     ? Number(fd.get('nonbio_kg') || 0)    : 0,
       };
       try {
-        await E.postJSON('/api/calculate', body);
-      } catch (e) { /* show local report regardless */ }
+      const res = await E.postJSON('/api/calculate', body);
+      console.log("Saved:", res);
+      } catch (e) {
+     alert("Data save nahi ho raha 😢");
+     console.error(e);
+      }
 
       showReport(cat, report);
     });
