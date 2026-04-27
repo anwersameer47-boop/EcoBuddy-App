@@ -240,7 +240,9 @@ def inject_user():
         "js_i18n": js_strings(lang),
     }
 
-
+@app.route("/health")
+def health():
+    return "EcoBuddy server is running"
 @app.route("/")
 def index():
     if current_user():
