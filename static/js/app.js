@@ -51,12 +51,17 @@
       return r.json();
     },
     async postJSON(url, data) {
-      const r = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data || {}),
-      });
-      return r.json();
+    const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data || {}),
+     });
+
+    if (!r.ok) {
+     throw new Error('Request failed: ' + url);
+      }
+
+    return r.json();
     },
   };
 })();
