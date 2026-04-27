@@ -393,6 +393,7 @@ def _monthly_total(user_id: int, month_start: date) -> float:
 
 
 @app.get("/api/dashboard-data")
+@login_required_api
 def api_dashboard_data():
     user = current_user()
     today = date.today()
