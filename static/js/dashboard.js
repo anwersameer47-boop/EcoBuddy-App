@@ -126,9 +126,18 @@
     return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
-  if (typeof Chart === 'undefined') {
-    setTimeout(load, 200);
-  } else {
-    load();
+  async function safeLoad() {
+  try {
+    await load();
+  } catch (err) {
+    console.error("Dashboard load error:", err);
+    alert("Unable to load dashboard data. Please refresh the page or log in again.");
   }
+}
+
+if (typeof Chart === 'undefined') {
+  setTimeout(safeLoad, 500);
+} else {
+  safeLoad();
+}
 })();
