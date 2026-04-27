@@ -827,3 +827,17 @@ button { font-family:inherit; }
 .offset-slide-card .btn {
   white-space: nowrap;
 }
+.install-app-btn {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: #16a34a;
+  color: white;
+  font-weight: 800;
+  box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
+  cursor: pointer;
+}
