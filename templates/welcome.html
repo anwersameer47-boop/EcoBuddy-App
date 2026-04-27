@@ -32,6 +32,65 @@
   </div>
 </section>
 
+<section class="welcome-features">
+  <h2 class="welcome-h2">{{ t('welcome.features_title') }}</h2>
+  <p class="welcome-h2-sub">{{ t('welcome.features_sub') }}</p>
+
+  <div class="feature-grid">
+    <a href="{{ url_for('login_view') }}" class="feature-card feature-calc">
+      <div class="feature-icon" aria-hidden="true">&#x1F9EE;</div>
+      <h3>{{ t('welcome.f_calc_title') }}</h3>
+      <p>{{ t('welcome.f_calc_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_calc_b1') }}</li>
+        <li>{{ t('welcome.f_calc_b2') }}</li>
+        <li>{{ t('welcome.f_calc_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">{{ t('welcome.try_it') }} &#8594;</span>
+    </a>
+
+    <a href="{{ url_for('login_view') }}" class="feature-card feature-goals">
+      <div class="feature-icon" aria-hidden="true">&#x1F3AF;</div>
+      <h3>{{ t('welcome.f_goals_title') }}</h3>
+      <p>{{ t('welcome.f_goals_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_goals_b1') }}</li>
+        <li>{{ t('welcome.f_goals_b2') }}</li>
+        <li>{{ t('welcome.f_goals_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">{{ t('welcome.try_it') }} &#8594;</span>
+    </a>
+
+    <a href="{{ url_for('login_view') }}" class="feature-card feature-chal">
+      <div class="feature-icon" aria-hidden="true">&#x1F3C6;</div>
+      <h3>{{ t('welcome.f_chal_title') }}</h3>
+      <p>{{ t('welcome.f_chal_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_chal_b1') }}</li>
+        <li>{{ t('welcome.f_chal_b2') }}</li>
+        <li>{{ t('welcome.f_chal_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">{{ t('welcome.try_it') }} &#8594;</span>
+    </a>
+
+    <a href="https://www.onetreeplanted.org/"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="feature-card feature-offset highlight">
+      <span class="feature-flag">{{ t('welcome.spotlight') }}</span>
+      <div class="feature-icon" aria-hidden="true">&#x1F333;</div>
+      <h3>{{ t('welcome.f_offset_title') }}</h3>
+      <p>{{ t('welcome.f_offset_desc') }}</p>
+      <ul class="feature-mini">
+        <li>{{ t('welcome.f_offset_b1') }}</li>
+        <li>{{ t('welcome.f_offset_b2') }}</li>
+        <li>{{ t('welcome.f_offset_b3') }}</li>
+      </ul>
+      <span class="feature-arrow">Plant a Tree &#8594;</span>
+    </a>
+  </div>
+</section>
+
 <section class="offset-slide-card">
   <div>
     <span class="offset-badge">🌱 Carbon Offset</span>
