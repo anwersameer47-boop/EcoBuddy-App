@@ -25,6 +25,9 @@
    download="EcoBuddy.apk">
    Download App 📲
 </a>
+  <div id="twa-loader">
+  <div class="twa-loader-bar"></div>
+</div>
   <!-- 🌿 SPLASH SCREEN -->
   <div id="splash-screen">
     <div class="splash-circle">
@@ -87,20 +90,28 @@
    {% block scripts %}
    {% endblock %}
   
- <script>
+<script>
   window.addEventListener("load", function () {
     const splash = document.getElementById("splash-screen");
+    const twaLoader = document.getElementById("twa-loader");
 
     const isTwa =
       document.referrer.startsWith("android-app://") ||
       window.matchMedia("(display-mode: standalone)").matches;
 
-    if (!splash) return;
-
     if (isTwa) {
-      splash.style.display = "none";
+      if (splash) splash.style.display = "none";
+
+      setTimeout(function () {
+        if (twaLoader) twaLoader.classList.add("hide");
+      }, 900);
+
       return;
     }
+
+    if (twaLoader) twaLoader.style.display = "none";
+
+    if (!splash) return;
 
     setTimeout(function () {
       splash.classList.add("hide");
