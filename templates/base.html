@@ -19,10 +19,12 @@
 </head>
 
 <body>
-   <button id="installAppBtn" class="install-app-btn" style="display:none;">
-  Download App 📱
-  </button>
-
+<a href="/static/app-release-signed.apk"
+   id="downloadAppFloat"
+   class="download-app-float"
+   download="EcoBuddy.apk">
+   Download App 📲
+</a>
   <!-- 🌿 SPLASH SCREEN -->
   <div id="splash-screen">
     <div class="splash-circle">
@@ -101,6 +103,25 @@ if ('serviceWorker' in navigator) {
     .then(() => console.log('Service Worker Registered'))
     .catch(err => console.log('SW error:', err));
 }
+</script>
+  <script>
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true ||
+    document.referrer.startsWith('android-app://');
+
+  const btn = document.getElementById("downloadAppFloat");
+
+  if (btn) {
+    if (isStandalone || localStorage.getItem("ecobuddy_app_downloaded") === "yes") {
+      btn.style.display = "none";
+    }
+
+    btn.addEventListener("click", function () {
+      localStorage.setItem("ecobuddy_app_downloaded", "yes");
+      btn.style.display = "none";
+    });
+  }
 </script>
  
 </body>
