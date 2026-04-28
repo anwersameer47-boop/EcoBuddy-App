@@ -698,7 +698,7 @@ button { font-family:inherit; }
   text-transform: uppercase;
 }
 
-.leaf {
+.splash-circle .leaf {
   position: absolute;
   font-size: 24px;
   opacity: .9;
@@ -889,5 +889,39 @@ button { font-family:inherit; }
     bottom: 14px;
     padding: 13px 18px;
     font-size: 14px;
+  }
+}
+#twa-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  background: linear-gradient(135deg, #f0fdf4, #ffffff);
+  opacity: 1;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+#twa-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.twa-loader-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 45%;
+  background: linear-gradient(90deg, #22c55e, #16a34a, #86efac);
+  border-radius: 999px;
+  animation: twaLoad 0.9s ease-in-out infinite;
+}
+
+@keyframes twaLoad {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(260%);
   }
 }
