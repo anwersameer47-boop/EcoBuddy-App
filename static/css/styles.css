@@ -660,14 +660,14 @@ button { font-family:inherit; }
   align-items: center;
   justify-content: center;
   gap: 14px;
-  z-index: 9999;
+  z-index: 9998;
   transition: opacity .7s ease, visibility .7s ease;
 }
 
 .splash-circle {
   position: relative;
-  width: 230px;
-  height: 230px;
+  width: 180px;
+  height: 180px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -677,7 +677,7 @@ button { font-family:inherit; }
 }
 
 .splash-logo {
-  width: 180px;
+  width: 130px;
   max-width: 80%;
   animation: logoBloom 1.5s ease forwards;
 }
@@ -725,7 +725,7 @@ button { font-family:inherit; }
   width: 45%;
   border-radius: 99px;
   background: linear-gradient(90deg, #22c55e, #15803d);
-  animation: loadSlide 1.2s ease-in-out infinite;
+  animation: loadSlide 1.6s ease-in-out infinite;
 }
 
 #splash-screen.hide {
