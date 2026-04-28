@@ -827,20 +827,7 @@ button { font-family:inherit; }
 .offset-slide-card .btn {
   white-space: nowrap;
 }
-.install-app-btn {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 9999;
-  border: none;
-  border-radius: 999px;
-  padding: 12px 18px;
-  background: #16a34a;
-  color: white;
-  font-weight: 800;
-  box-shadow: 0 10px 25px rgba(22, 163, 74, 0.35);
-  cursor: pointer;
-}
+
 .action-buttons {
     display: flex;
     gap: 10px;
@@ -872,4 +859,35 @@ button { font-family:inherit; }
     .action-buttons .btn {
         width: 100%;
     }
+}
+.download-app-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(22, 163, 74, 0.35);
+  transition: all 0.2s ease;
+}
+
+.download-app-float:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  .download-app-float {
+    right: 14px;
+    bottom: 14px;
+    padding: 13px 18px;
+    font-size: 14px;
+  }
 }
