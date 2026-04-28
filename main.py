@@ -258,7 +258,6 @@ def assetlinks():
             }
         }
     ])
-    )
 @app.route("/")
 def index():
     if current_user():
