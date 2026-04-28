@@ -15,6 +15,12 @@
       "src": "/static/eco.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/static/mono.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
