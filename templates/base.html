@@ -87,20 +87,24 @@
    {% block scripts %}
    {% endblock %}
   
-  <script>
+ <script>
   window.addEventListener("load", function () {
     const splash = document.getElementById("splash-screen");
 
-    const isStandalone =
-      window.matchMedia("(display-mode: standalone)").matches ||
-      window.navigator.standalone === true ||
-      document.referrer.startsWith("android-app://");
+    const isTwa =
+      document.referrer.startsWith("android-app://") ||
+      window.matchMedia("(display-mode: standalone)").matches;
 
     if (!splash) return;
 
+    if (isTwa) {
+      splash.style.display = "none";
+      return;
+    }
+
     setTimeout(function () {
       splash.classList.add("hide");
-    }, isStandalone ? 1200 : 1800);
+    }, 1800);
   });
 </script>
   
