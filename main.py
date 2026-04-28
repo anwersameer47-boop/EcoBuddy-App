@@ -5,7 +5,7 @@ from io import BytesIO
 import bcrypt
 from flask import (
     Flask, render_template, request, redirect, url_for, jsonify,
-    session, send_file, flash, abort
+    session, send_file, flash, abort, send_from_directory
 )
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
@@ -243,6 +243,14 @@ def inject_user():
 @app.route("/health")
 def health():
     return "EcoBuddy server is running"
+    
+@app.route("/.well-known/assetlinks.json")
+def assetlinks():
+    return send_from_directory(
+        ".well-known",
+        "assetlinks.json",
+        mimetype="application/json"
+    )
 @app.route("/")
 def index():
     if current_user():
