@@ -246,10 +246,18 @@ def health():
     
 @app.route("/.well-known/assetlinks.json")
 def assetlinks():
-    return send_from_directory(
-        ".well-known",
-        "assetlinks.json",
-        mimetype="application/json"
+    return jsonify([
+        {
+            "relation": ["delegate_permission/common.handle_all_urls"],
+            "target": {
+                "namespace": "android_app",
+                "package_name": "com.sam.ecobuddy",
+                "sha256_cert_fingerprints": [
+                    "6A:0F:80:48:10:55:10:51:90:38:99:44:49:E0:7D:BF:23:69:B6:26:A5:A4:CD:BD:21:5E:03:5B:75:53:A6:36"
+                ]
+            }
+        }
+    ])
     )
 @app.route("/")
 def index():
