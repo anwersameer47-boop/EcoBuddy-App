@@ -27,8 +27,7 @@ app.config["SECRET_KEY"] = os.environ.get("SESSION_SECRET", "dev-secret-change-m
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    raise RuntimeError("DATABASE_URL is missing. Please connect Postgres variables in Railway.")
-
+    DATABASE_URL = "sqlite:///local.db"
 # Railway sometimes gives postgres://, SQLAlchemy needs postgresql://
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
