@@ -606,7 +606,15 @@
         nonbio_kg:    cat === 'waste'     ? Number(fd.get('nonbio_kg') || 0)    : 0,
       };
       try {
-      const res = await E.postJSON('/api/calculate', body);
+      const response = await fetch('/api/calculate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(body)
+});
+
+const res = await response.json();
       console.log("Saved:", res);
 
 if (!res || res.error || res.saved === false) {
