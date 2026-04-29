@@ -609,7 +609,7 @@
       const res = await E.postJSON('/api/calculate', body);
       console.log("Saved:", res);
       } catch (e) {
-     alert("Data save nahi ho raha 😢");
+     alert("Data is not being saved");
      console.error(e);
       }
 
