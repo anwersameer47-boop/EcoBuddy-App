@@ -1,37 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ lang }}" lang="{{ lang }}" data-theme="{{ 'dark' if dark_mode else 'light' }}">
+<!DOCTYPE html>
+<html lang="{{ lang }}" data-theme="{{ 'dark' if dark_mode else 'light' }}">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>{% block title %}EcoBuddy{% endblock %}</title>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
-  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-  <meta name="theme-color" content="#16a34a">
+
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+  <meta name="theme-color" content="#16a34a" />
 </head>
 
 <body>
-<a href="/static/app-release-signed.apk"
-   id="downloadAppFloat"
-   class="download-app-float"
-   download="EcoBuddy.apk">
-   Download App 📲
-</a>
+
+  <a href="/static/app-release-signed.apk"
+     id="downloadAppFloat"
+     class="download-app-float"
+     download="EcoBuddy.apk">
+    Download App 📲
+  </a>
+
   <div id="twa-loader">
-  <div class="twa-loader-bar"></div>
-</div>
-  <!-- 🌿 SPLASH SCREEN -->
+    <div class="twa-loader-bar"></div>
+  </div>
+
   <div id="splash-screen">
     <div class="splash-circle">
-      <img src="{{ url_for('static', filename='eco.png') }}" class="splash-logo">
+      <img src="{{ url_for('static', filename='eco.png') }}" class="splash-logo" alt="EcoBuddy Logo" />
       <span class="leaf leaf-1">🍃</span>
       <span class="leaf leaf-2">🍃</span>
       <span class="leaf leaf-3">🍃</span>
@@ -44,12 +46,13 @@
   {% if not current_user %}
   <div class="public-bar">
     <a class="public-brand" href="{{ url_for('index') }}">
-      <span class="brand-leaf">&#x1F33F;</span> EcoBuddy
+      <span class="brand-leaf">🌿</span> EcoBuddy
     </a>
 
     <div class="public-lang">
       <a href="{{ url_for('set_language', lang='en', next=request.path) }}"
          class="lang-btn {% if lang == 'en' %}active{% endif %}">EN</a>
+
       <a href="{{ url_for('set_language', lang='hi', next=request.path) }}"
          class="lang-btn {% if lang == 'hi' %}active{% endif %}">हिं</a>
     </div>
@@ -59,10 +62,10 @@
   {% if current_user %}
   <nav class="topnav">
     <a class="brand" href="{{ url_for('dashboard') }}">
-      <span class="brand-leaf">&#x1F33F;</span> EcoBuddy
+      <span class="brand-leaf">🌿</span> EcoBuddy
     </a>
 
-    <button class="nav-toggle" id="navToggle">&#9776;</button>
+    <button class="nav-toggle" id="navToggle" type="button">☰</button>
 
     <div class="nav-links" id="navLinks">
       <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
@@ -71,7 +74,10 @@
       <a href="{{ url_for('goals_page') }}" class="nav-link">Goals</a>
       <a href="{{ url_for('profile_page') }}" class="nav-link">Profile</a>
 
-      <button id="darkToggle" class="theme-btn">🌙</button>
+      <button id="darkToggle" class="theme-btn" type="button">
+        <span class="theme-icon">🌙</span>
+      </button>
+
       <a href="{{ url_for('logout') }}" class="nav-link logout">Logout</a>
     </div>
   </nav>
@@ -85,66 +91,72 @@
     <span>EcoBuddy © {{ current_year }}</span>
   </footer>
 
-  <!-- JS -->
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-   {% block scripts %}
-   {% endblock %}
-  
-<script>
-  window.addEventListener("load", function () {
-    const splash = document.getElementById("splash-screen");
-    const twaLoader = document.getElementById("twa-loader");
 
-    const isTwa =
-      document.referrer.startsWith("android-app://") ||
-      window.matchMedia("(display-mode: standalone)").matches;
+  {% block scripts %}{% endblock %}
 
-    if (isTwa) {
-      if (splash) splash.style.display = "none";
+  <script>
+    window.addEventListener("load", function () {
+      const splash = document.getElementById("splash-screen");
+      const twaLoader = document.getElementById("twa-loader");
+
+      const isTwa =
+        document.referrer.startsWith("android-app://") ||
+        window.matchMedia("(display-mode: standalone)").matches;
+
+      if (isTwa) {
+        if (splash) splash.style.display = "none";
+
+        setTimeout(function () {
+          if (twaLoader) twaLoader.classList.add("hide");
+        }, 900);
+
+        return;
+      }
+
+      if (twaLoader) twaLoader.style.display = "none";
+
+      if (!splash) return;
 
       setTimeout(function () {
-        if (twaLoader) twaLoader.classList.add("hide");
-      }, 900);
-
-      return;
-    }
-
-    if (twaLoader) twaLoader.style.display = "none";
-
-    if (!splash) return;
-
-    setTimeout(function () {
-      splash.classList.add("hide");
-    }, 1800);
-  });
-</script>
-  
-  <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/static/sw.js')
-    .then(() => console.log('Service Worker Registered'))
-    .catch(err => console.log('SW error:', err));
-}
-</script>
-  <script>
-  const isStandalone =
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone === true ||
-    document.referrer.startsWith('android-app://');
-
-  const btn = document.getElementById("downloadAppFloat");
-
-  if (btn) {
-    if (isStandalone || localStorage.getItem("ecobuddy_app_downloaded") === "yes") {
-      btn.style.display = "none";
-    }
-
-    btn.addEventListener("click", function () {
-      localStorage.setItem("ecobuddy_app_downloaded", "yes");
-      btn.style.display = "none";
+        splash.classList.add("hide");
+      }, 1800);
     });
-  }
-</script>
- 
+  </script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js")
+          .then(function () {
+            console.log("Service Worker Registered");
+          })
+          .catch(function (err) {
+            console.log("SW error:", err);
+          });
+      });
+    }
+  </script>
+
+  <script>
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.navigator.standalone === true ||
+      document.referrer.startsWith("android-app://");
+
+    const btn = document.getElementById("downloadAppFloat");
+
+    if (btn) {
+      if (isStandalone || localStorage.getItem("ecobuddy_app_downloaded") === "yes") {
+        btn.style.display = "none";
+      }
+
+      btn.addEventListener("click", function () {
+        localStorage.setItem("ecobuddy_app_downloaded", "yes");
+        btn.style.display = "none";
+      });
+    }
+  </script>
+
 </body>
 </html>
