@@ -1,4 +1,9 @@
 (function () {
+  if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => registration.unregister());
+  });
+}
   const root = document.documentElement;
   const themeBtn = document.getElementById('darkToggle');
   if (themeBtn) {
