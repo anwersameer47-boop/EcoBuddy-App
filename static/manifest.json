@@ -10,21 +10,21 @@
   "theme_color": "#16A34A",
 
   "icons": [
-    {
-      "src": "/static/mono-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/mono-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/mono-maskable.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ]
-}
+  {
+    "src": "/static/mono-192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "/static/mono-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  },
+  {
+    "src": "/static/mono-maskable.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "purpose": "maskable"
+  }
+ ]
+}  
