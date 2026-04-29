@@ -64,27 +64,4 @@
     return r.json();
     },
   };
-  let deferredPrompt;
-const installBtn = document.getElementById("installAppBtn");
-
-window.addEventListener("beforeinstallprompt", (event) => {
-  event.preventDefault();
-  deferredPrompt = event;
-  if (installBtn) installBtn.style.display = "block";
-});
-
-if (installBtn) {
-  installBtn.addEventListener("click", async () => {
-    if (!deferredPrompt) {
-      alert("Please use Chrome menu → Add to Home Screen.");
-      return;
-    }
-
-    deferredPrompt.prompt();
-    await deferredPrompt.userChoice;
-
-    deferredPrompt = null;
-    installBtn.style.display = "none";
-  });
-}
-})();
+  
