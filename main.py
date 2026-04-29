@@ -308,6 +308,11 @@ def logout():
     return redirect(url_for("login_view"))
 
 
+@app.route("/manifest.json")
+def manifest():
+    return send_from_directory(".", "manifest.json")
+
+
 @app.route("/forgot", methods=["GET", "POST"])
 def forgot_password():
     if request.method == "POST":
