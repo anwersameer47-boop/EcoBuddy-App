@@ -310,7 +310,7 @@ def logout():
 
 @app.route("/manifest.json")
 def manifest():
-    return send_from_directory(".", "manifest.json")
+    return send_from_directory("static", "manifest.json")
 
 
 @app.route("/forgot", methods=["GET", "POST"])
