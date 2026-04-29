@@ -1,3 +1,4 @@
+
 (async function () {
   let E;
   let pieChart, lineChart, compareChart;
@@ -9,17 +10,24 @@
     globe: '\u{1F30D}',
     trophy: '\u{1F3C6}',
   };
+
   const tipIcons = {
-    bus: '\u{1F68C}', bulb: '\u{1F4A1}', salad: '\u{1F957}',
-    recycle: '\u267B', tree: '\u{1F333}', spark: '\u2728',
+    bus: '\u{1F68C}',
+    bulb: '\u{1F4A1}',
+    salad: '\u{1F957}',
+    recycle: '\u267B',
+    tree: '\u{1F333}',
+    spark: '\u2728',
   };
 
   async function load() {
     E = window.EcoBuddy;
+
     const data = await E.getJSON('/api/dashboard-data');
 
     document.getElementById('hello').innerHTML =
       `Welcome, ${escapeHtml(data.name)} <span class="leaf">\u{1F331}</span>`;
+
     document.getElementById('todayTotal').textContent = data.today_total.toFixed(2);
     document.getElementById('weekTotal').textContent = data.week_total.toFixed(2);
     document.getElementById('monthTotal').textContent = data.month_total.toFixed(2);
@@ -50,22 +58,37 @@
   function drawPie(cats) {
     const ctx = document.getElementById('pieChart');
     if (!ctx) return;
+
     pieChart && pieChart.destroy();
+
     pieChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: ['Transport', 'Energy', 'Food', 'Waste'],
         datasets: [{
           data: [cats.transport, cats.energy, cats.food, cats.waste],
-          backgroundColor: [E.palette.transport, E.palette.energy, E.palette.food, E.palette.waste],
+          backgroundColor: [
+            E.palette.transport,
+            E.palette.energy,
+            E.palette.food,
+            E.palette.waste,
+          ],
           borderWidth: 0,
         }],
       },
       options: {
-        responsive: true, maintainAspectRatio: false,
+        responsive: true,
+        maintainAspectRatio: false,
         cutout: '62%',
         plugins: {
-          legend: { position: 'bottom', labels: { color: E.chartTextColor(), boxWidth: 12, padding: 14 } },
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: E.chartTextColor(),
+              boxWidth: 12,
+              padding: 14,
+            },
+          },
         },
       },
     });
@@ -74,7 +97,9 @@
   function drawLine(series) {
     const ctx = document.getElementById('lineChart');
     if (!ctx) return;
+
     lineChart && lineChart.destroy();
+
     lineChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -84,15 +109,37 @@
           data: series.map(s => s.total),
           borderColor: E.palette.line,
           backgroundColor: E.palette.lineBg,
-          tension: .35, fill: true, borderWidth: 2, pointRadius: 0,
+          tension: 0.35,
+          fill: true,
+          borderWidth: 2,
+          pointRadius: 0,
         }],
       },
       options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+        },
         scales: {
-          x: { ticks: { color: E.chartTextColor(), maxTicksLimit: 8 }, grid: { color: E.chartGridColor() } },
-          y: { ticks: { color: E.chartTextColor() }, grid: { color: E.chartGridColor() }, beginAtZero: true },
+          x: {
+            ticks: {
+              color: E.chartTextColor(),
+              maxTicksLimit: 8,
+            },
+            grid: {
+              color: E.chartGridColor(),
+            },
+          },
+          y: {
+            ticks: {
+              color: E.chartTextColor(),
+            },
+            grid: {
+              color: E.chartGridColor(),
+            },
+            beginAtZero: true,
+          },
         },
       },
     });
@@ -101,7 +148,9 @@
   function drawCompare(c) {
     const ctx = document.getElementById('compareChart');
     if (!ctx) return;
+
     compareChart && compareChart.destroy();
+
     compareChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -113,37 +162,62 @@
         }],
       },
       options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+        },
         scales: {
-          x: { ticks: { color: E.chartTextColor() }, grid: { display: false } },
-          y: { ticks: { color: E.chartTextColor() }, grid: { color: E.chartGridColor() }, beginAtZero: true },
+          x: {
+            ticks: {
+              color: E.chartTextColor(),
+            },
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            ticks: {
+              color: E.chartTextColor(),
+            },
+            grid: {
+              color: E.chartGridColor(),
+            },
+            beginAtZero: true,
+          },
         },
       },
     });
   }
 
   function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[c]));
   }
 
- async function safeLoad() {
-  try {
-    if (!window.EcoBuddy) {
-      setTimeout(safeLoad, 500);
-      return;
-    }
+  async function safeLoad() {
+    try {
+      if (!window.EcoBuddy) {
+        setTimeout(safeLoad, 500);
+        return;
+      }
 
-    if (typeof Chart === "undefined") {
-      setTimeout(safeLoad, 1000);
-      return;
-    }
+      if (typeof Chart === 'undefined') {
+        setTimeout(safeLoad, 1000);
+        return;
+      }
 
-    await load();
-  } catch (err) {
-    console.error("Dashboard load error:", err);
-    alert("Unable to load dashboard data. Please refresh the page or log in again.");
+      await load();
+    } catch (err) {
+      console.error('Dashboard load error:', err);
+      alert('Unable to load dashboard data. Please refresh the page or log in again.');
+    }
   }
-}
 
-safeLoad();
+  safeLoad();
+})();
