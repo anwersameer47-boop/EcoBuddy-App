@@ -608,11 +608,16 @@
       try {
       const res = await E.postJSON('/api/calculate', body);
       console.log("Saved:", res);
-      } catch (e) {
-     alert("Data is not being saved");
-     console.error(e);
-      }
 
+if (!res || res.error || res.saved === false) {
+  console.error("Save failed:", res);
+  alert("Data is not being saved 😢");
+  return;
+}
+} catch (e) {
+  alert("Data is not being saved 😢");
+  console.error(e);
+}
       showReport(cat, report);
     });
   }
