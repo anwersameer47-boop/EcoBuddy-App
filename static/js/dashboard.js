@@ -1,5 +1,5 @@
 (async function () {
-  const E = window.EcoBuddy;
+  let E;
   let pieChart, lineChart, compareChart;
 
   const badgeIcons = {
@@ -15,6 +15,7 @@
   };
 
   async function load() {
+    E = window.EcoBuddy;
     const data = await E.getJSON('/api/dashboard-data');
 
     document.getElementById('hello').innerHTML =
@@ -126,8 +127,18 @@
     return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
-  async function safeLoad() {
+ async function safeLoad() {
   try {
+    if (!window.EcoBuddy) {
+      setTimeout(safeLoad, 500);
+      return;
+    }
+
+    if (typeof Chart === "undefined") {
+      setTimeout(safeLoad, 1000);
+      return;
+    }
+
     await load();
   } catch (err) {
     console.error("Dashboard load error:", err);
@@ -135,9 +146,4 @@
   }
 }
 
-if (typeof Chart === 'undefined') {
-  setTimeout(safeLoad, 500);
-} else {
-  safeLoad();
-}
-})();
+safeLoad();
